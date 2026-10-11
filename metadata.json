@@ -1,0 +1,6 @@
+{
+  "name": "VG ALPHAX — Premium Gaming Membership & Community",
+  "description": "High-end esports gaming membership and community platform for VG ALPHAX with YouTube-style creator features, tiered memberships, real-time chat, UPI payment verification, and live-stream alert overlays.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
