@@ -1026,9 +1026,263 @@ app.get('/api/alerts/history', (_req: Request, res: Response) => {
 });
 
 // ==========================================
-// 8. ADMIN DASHBOARD & SETTINGS
+// 8. SECURE ADMIN SESSIONS, AUTH & ROLE-BASED ACCESS CONTROL
 // ==========================================
-app.get('/api/admin/overview', (_req: Request, res: Response) => {
+
+interface AdminSession {
+  token: string;
+  adminId: string;
+  email: string;
+  name: string;
+  role: 'owner' | 'admin';
+  createdAt: string;
+  expiresAt: string;
+}
+
+const adminSessions = new Map<string, AdminSession>();
+
+function createAdminSession(admin: { id: string; email: string; name: string; role: 'owner' | 'admin' }): AdminSession {
+  const token = `alphax_adm_${crypto.randomBytes(32).toString('hex')}`;
+  const expiresAt = new Date(Date.now() + 12 * 60 * 60 * 1000).toISOString(); // 12-hour session
+  const session: AdminSession = {
+    token,
+    adminId: admin.id,
+    email: admin.email,
+    name: admin.name,
+    role: admin.role,
+    createdAt: new Date().toISOString(),
+    expiresAt,
+  };
+  adminSessions.set(token, session);
+  return session;
+}
+
+function requireAdminAuth(req: Request, res: Response, next: express.NextFunction) {
+  const authHeader = req.headers.authorization;
+  const token = (authHeader && authHeader.startsWith('Bearer '))
+    ? authHeader.slice(7)
+    : (req.headers['x-admin-token'] as string);
+
+  // Allow trusted direct server calls via configured secret key header
+  const secretHeader = req.headers['x-admin-secret-key'] as string;
+  if (secretHeader && process.env.ADMIN_SECRET_KEY && secretHeader === process.env.ADMIN_SECRET_KEY) {
+    (req as any).adminUser = {
+      adminId: 'usr_owner',
+      name: 'VG ALPHAX (Owner)',
+      role: 'owner',
+      email: process.env.ADMIN_EMAIL || 'owner@vgalphax.com',
+    };
+    return next();
+  }
+
+  if (!token) {
+    return res.status(401).json({
+      error: 'Unauthorized: Admin authentication token required. Please sign in at /admin.',
+      code: 'ADMIN_AUTH_REQUIRED',
+    });
+  }
+
+  const session = adminSessions.get(token);
+  if (!session) {
+    return res.status(401).json({
+      error: 'Unauthorized: Invalid or expired admin session. Please log in again.',
+      code: 'INVALID_SESSION',
+    });
+  }
+
+  if (new Date(session.expiresAt).getTime() < Date.now()) {
+    adminSessions.delete(token);
+    return res.status(401).json({
+      error: 'Unauthorized: Admin session expired. Please log in again.',
+      code: 'SESSION_EXPIRED',
+    });
+  }
+
+  if (session.role !== 'owner' && session.role !== 'admin') {
+    return res.status(403).json({
+      error: 'Forbidden: Insufficient privileges. Only verified administrators can access.',
+      code: 'FORBIDDEN',
+    });
+  }
+
+  (req as any).adminUser = session;
+  next();
+}
+
+// 8.1 Admin Authentication Endpoints
+
+// POST /api/admin/auth/login
+app.post('/api/admin/auth/login', (req: Request, res: Response) => {
+  const { email, password, secretKey } = req.body;
+
+  // Option A: Master secret key login
+  if (secretKey) {
+    const configuredSecret = process.env.ADMIN_SECRET_KEY;
+    if (configuredSecret && secretKey === configuredSecret) {
+      const session = createAdminSession({
+        id: 'usr_owner',
+        email: process.env.ADMIN_EMAIL || 'owner@vgalphax.com',
+        name: 'VG ALPHAX (Owner)',
+        role: 'owner',
+      });
+      return res.json({
+        success: true,
+        token: session.token,
+        session: {
+          adminId: session.adminId,
+          email: session.email,
+          name: session.name,
+          role: session.role,
+          expiresAt: session.expiresAt,
+        },
+      });
+    }
+    return res.status(401).json({ error: 'Invalid admin secret key', code: 'INVALID_CREDENTIALS' });
+  }
+
+  // Option B: Email + Password login
+  if (!email || !password) {
+    return res.status(400).json({ error: 'Email and password are required', code: 'MISSING_FIELDS' });
+  }
+
+  const configuredEmail = (process.env.ADMIN_EMAIL || 'admin@vgalphax.com').toLowerCase();
+  const configuredPassword = process.env.ADMIN_PASSWORD || 'AlphaX_Admin_2026!';
+
+  if (email.toLowerCase().trim() === configuredEmail && password === configuredPassword) {
+    const session = createAdminSession({
+      id: 'usr_owner',
+      email: configuredEmail,
+      name: 'VG ALPHAX Administrator',
+      role: 'owner',
+    });
+    return res.json({
+      success: true,
+      token: session.token,
+      session: {
+        adminId: session.adminId,
+        email: session.email,
+        name: session.name,
+        role: session.role,
+        expiresAt: session.expiresAt,
+      },
+    });
+  }
+
+  // Check database users with verified admin or owner role
+  const dbAdmin = db.users.find(
+    (u) => u.email.toLowerCase() === email.toLowerCase().trim() && (u.role === 'admin' || u.role === 'owner')
+  );
+
+  if (dbAdmin && password === configuredPassword) {
+    const session = createAdminSession({
+      id: dbAdmin.id,
+      email: dbAdmin.email,
+      name: dbAdmin.name,
+      role: dbAdmin.role as 'owner' | 'admin',
+    });
+    return res.json({
+      success: true,
+      token: session.token,
+      session: {
+        adminId: session.adminId,
+        email: session.email,
+        name: session.name,
+        role: session.role,
+        expiresAt: session.expiresAt,
+      },
+    });
+  }
+
+  return res.status(401).json({
+    error: 'Invalid administrator credentials. Access is restricted to authorized personnel.',
+    code: 'INVALID_CREDENTIALS',
+  });
+});
+
+// POST /api/admin/auth/supabase-verify
+app.post('/api/admin/auth/supabase-verify', async (req: Request, res: Response) => {
+  const { accessToken } = req.body;
+  if (!accessToken) {
+    return res.status(400).json({ error: 'Supabase access token required' });
+  }
+
+  try {
+    const supabaseUrl = process.env.VITE_SUPABASE_URL || 'https://kvksunfttokewwdyonxl.supabase.co';
+    const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY || '';
+
+    const headers: Record<string, string> = {
+      Authorization: `Bearer ${accessToken}`,
+    };
+    if (supabaseKey) headers['apikey'] = supabaseKey;
+
+    const authRes = await fetch(`${supabaseUrl}/auth/v1/user`, { headers });
+    if (!authRes.ok) {
+      return res.status(401).json({ error: 'Supabase token validation failed' });
+    }
+
+    const userData = await authRes.json();
+    const userEmail = (userData.email || '').toLowerCase();
+
+    // Check if user has admin/owner role in database or matches configured admin email
+    const configuredAdminEmail = (process.env.ADMIN_EMAIL || 'admin@vgalphax.com').toLowerCase();
+    const dbUser = db.users.find((u) => u.email.toLowerCase() === userEmail);
+
+    const isOwner = userEmail === configuredAdminEmail || dbUser?.role === 'owner';
+    const isAdmin = dbUser?.role === 'admin';
+
+    if (!isOwner && !isAdmin) {
+      return res.status(403).json({
+        error: 'Forbidden: Account does not have administrator privileges in VG ALPHAX database.',
+        code: 'NOT_AN_ADMIN',
+      });
+    }
+
+    const session = createAdminSession({
+      id: dbUser?.id || userData.id || 'usr_admin',
+      email: userEmail,
+      name: dbUser?.name || userData.user_metadata?.name || 'Authorized Admin',
+      role: isOwner ? 'owner' : 'admin',
+    });
+
+    res.json({
+      success: true,
+      token: session.token,
+      session: {
+        adminId: session.adminId,
+        email: session.email,
+        name: session.name,
+        role: session.role,
+        expiresAt: session.expiresAt,
+      },
+    });
+  } catch (err: any) {
+    res.status(500).json({ error: 'Failed to verify Supabase token: ' + err.message });
+  }
+});
+
+// GET /api/admin/auth/me
+app.get('/api/admin/auth/me', requireAdminAuth, (req: Request, res: Response) => {
+  res.json({
+    success: true,
+    admin: (req as any).adminUser,
+  });
+});
+
+// POST /api/admin/auth/logout
+app.post('/api/admin/auth/logout', (req: Request, res: Response) => {
+  const authHeader = req.headers.authorization;
+  const token = (authHeader && authHeader.startsWith('Bearer '))
+    ? authHeader.slice(7)
+    : (req.headers['x-admin-token'] as string);
+
+  if (token) {
+    adminSessions.delete(token);
+  }
+  res.json({ success: true, message: 'Logged out successfully' });
+});
+
+// 8.2 Protected Admin Dashboard Metrics & Overview
+app.get('/api/admin/overview', requireAdminAuth, (req: Request, res: Response) => {
   const verifiedOrders = db.orders.filter((o) => o.status === 'VERIFIED');
   const totalRevenue = verifiedOrders.reduce((acc, o) => acc + o.amount, 0);
 
@@ -1041,6 +1295,7 @@ app.get('/api/admin/overview', (_req: Request, res: Response) => {
       subscribers: db.creator.subscriberCount,
       activeAlerts: db.alerts.length,
       webhookLogsCount: db.webhookLogs.length,
+      registeredUsersCount: db.users.length,
     },
     orders: db.orders,
     webhookLogs: db.webhookLogs,
@@ -1048,16 +1303,59 @@ app.get('/api/admin/overview', (_req: Request, res: Response) => {
       ...db.settings,
       youtubeApiKeyConfigured: Boolean(process.env.YOUTUBE_API_KEY),
       supabaseConfigured: Boolean(process.env.VITE_SUPABASE_ANON_KEY),
+      adminEmail: process.env.ADMIN_EMAIL || 'admin@vgalphax.com',
     },
     plans: db.plans,
   });
 });
 
-app.post('/api/admin/orders/:orderId/verify', (req: Request, res: Response) => {
+// 8.3 Protected Registered Users Management
+app.get('/api/admin/users', requireAdminAuth, (_req: Request, res: Response) => {
+  res.json({
+    users: db.users.map((u) => ({
+      id: u.id,
+      email: u.email,
+      name: u.name,
+      avatar: u.avatar,
+      role: u.role,
+      membership: u.membership || null,
+      createdAt: u.createdAt,
+    })),
+  });
+});
+
+app.post('/api/admin/users/:userId/role', requireAdminAuth, (req: Request, res: Response) => {
+  const { userId } = req.params;
+  const { role } = req.body;
+
+  if (userId === 'usr_owner') {
+    return res.status(403).json({ error: 'Channel owner role cannot be modified' });
+  }
+
+  if (!['admin', 'member'].includes(role)) {
+    return res.status(400).json({ error: 'Role must be either "admin" or "member"' });
+  }
+
+  const user = db.users.find((u) => u.id === userId);
+  if (!user) {
+    return res.status(404).json({ error: 'User not found in database' });
+  }
+
+  user.role = role as any;
+  saveDB(db);
+
+  res.json({ success: true, user });
+});
+
+// 8.4 Protected Manual Order Verification (Requirement 4: Verify against bank before approving)
+app.post('/api/admin/orders/:orderId/verify', requireAdminAuth, (req: Request, res: Response) => {
   const { orderId } = req.params;
+  const { confirmationRef, verificationNotes } = req.body;
+  const adminUser = (req as any).adminUser;
+
   const order = db.orders.find((o) => o.orderId === orderId);
   if (!order) {
-    return res.status(404).json({ error: 'Order not found' });
+    return res.status(404).json({ error: 'Order not found in database' });
   }
 
   const now = new Date();
@@ -1070,10 +1368,17 @@ app.post('/api/admin/orders/:orderId/verify', (req: Request, res: Response) => {
 
   order.status = 'VERIFIED';
   order.signatureVerified = true;
-  order.verificationNotes = 'Verified by authorized channel owner after confirming bank/UPI transfer';
+  order.verifiedBy = adminUser.email || adminUser.name || 'Admin';
+  if (confirmationRef) {
+    order.gatewayPaymentId = confirmationRef;
+  }
+  order.verificationNotes =
+    verificationNotes ||
+    `Verified by ${adminUser.name} (${adminUser.email}) after verifying credit in UPI/bank account.`;
   order.completedAt = now.toISOString();
   order.expiresAt = expiry.toISOString();
 
+  // Activate membership in user record
   const user = db.users.find((u) => u.id === order.userId);
   if (user) {
     user.membership = {
@@ -1083,7 +1388,7 @@ app.post('/api/admin/orders/:orderId/verify', (req: Request, res: Response) => {
       active: true,
       startedAt: now.toISOString(),
       expiresAt: expiry.toISOString(),
-      paymentRef: order.gatewayPaymentId || `manual_upi_${Date.now()}`,
+      paymentRef: order.gatewayPaymentId || `bank_verified_${Date.now()}`,
     };
   }
 
@@ -1114,21 +1419,28 @@ app.post('/api/admin/orders/:orderId/verify', (req: Request, res: Response) => {
   res.json({ success: true, order, alert: alertEvent });
 });
 
-app.post('/api/admin/orders/:orderId/cancel', (req: Request, res: Response) => {
+// Protected Order Cancellation
+app.post('/api/admin/orders/:orderId/cancel', requireAdminAuth, (req: Request, res: Response) => {
   const { orderId } = req.params;
+  const { reason } = req.body;
+  const adminUser = (req as any).adminUser;
+
   const order = db.orders.find((o) => o.orderId === orderId);
   if (!order) {
     return res.status(404).json({ error: 'Order not found' });
   }
 
   order.status = 'CANCELLED';
-  order.verificationNotes = 'Cancelled by administrator / unconfirmed transaction';
+  order.verifiedBy = adminUser.email || adminUser.name;
+  order.verificationNotes =
+    reason || `Cancelled by admin (${adminUser.email}) - unverified / invalid transaction`;
   saveDB(db);
 
   res.json({ success: true, order });
 });
 
-app.post('/api/alerts/trigger-test', (req: Request, res: Response) => {
+// Protected Test Alert Trigger (OBS overlay testing)
+app.post('/api/alerts/trigger-test', requireAdminAuth, (req: Request, res: Response) => {
   const { tier, memberName } = req.body;
   const plan = db.plans.find((p) => p.tier === tier) || db.plans[1];
   const name = memberName || 'Rahul_Gamer';
@@ -1156,7 +1468,8 @@ app.post('/api/alerts/trigger-test', (req: Request, res: Response) => {
   res.json({ success: true, alert: testAlert });
 });
 
-app.post('/api/admin/settings', (req: Request, res: Response) => {
+// Protected Settings Update
+app.post('/api/admin/settings', requireAdminAuth, (req: Request, res: Response) => {
   const {
     upiId,
     upiIdVerified,
@@ -1182,7 +1495,8 @@ app.post('/api/admin/settings', (req: Request, res: Response) => {
   res.json({ success: true, settings: db.settings });
 });
 
-app.post('/api/admin/plans/update', (req: Request, res: Response) => {
+// Protected Plans Update
+app.post('/api/admin/plans/update', requireAdminAuth, (req: Request, res: Response) => {
   const { tier, monthlyPrice, yearlyPrice, perks } = req.body;
   const plan = db.plans.find((p) => p.tier === tier);
   if (!plan) {
@@ -1196,6 +1510,7 @@ app.post('/api/admin/plans/update', (req: Request, res: Response) => {
   saveDB(db);
   res.json({ success: true, plan });
 });
+
 
 // Full Supabase / PostgreSQL schema export
 app.get('/api/export/schema.sql', (_req: Request, res: Response) => {

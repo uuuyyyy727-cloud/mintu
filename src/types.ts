@@ -55,9 +55,18 @@ export interface PaymentOrder {
   gatewayPaymentId?: string;
   signatureVerified: boolean;
   verificationNotes?: string;
+  verifiedBy?: string;
   createdAt: string;
   completedAt?: string;
   expiresAt?: string;
+}
+
+export interface AdminSessionInfo {
+  adminId: string;
+  email: string;
+  name: string;
+  role: 'owner' | 'admin';
+  expiresAt: string;
 }
 
 export interface PaymentWebhookLog {

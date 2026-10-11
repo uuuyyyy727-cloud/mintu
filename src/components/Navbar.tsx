@@ -137,17 +137,16 @@ export const Navbar: React.FC<NavbarProps> = ({
               <Video className="w-4 h-4 text-emerald-400" />
               Videos &amp; Streams
             </button>
-            {(currentUser.role === 'owner' || currentUser.role === 'admin') && (
-              <button
-                onClick={() => setCurrentTab('admin')}
-                className={`hover:text-white transition-colors whitespace-nowrap shrink-0 flex items-center gap-1 text-purple-300 bg-purple-950/40 border border-purple-700/40 px-2.5 py-1 rounded-md ${
-                  currentTab === 'admin' ? 'border-purple-400 bg-purple-900/60' : ''
-                }`}
-              >
-                <Settings className="w-3.5 h-3.5" />
-                Admin Panel
-              </button>
-            )}
+            <button
+              onClick={() => setCurrentTab('admin')}
+              className={`hover:text-white transition-colors whitespace-nowrap shrink-0 flex items-center gap-1.5 text-purple-300 bg-purple-950/40 border border-purple-700/40 px-2.5 py-1 rounded-md text-xs font-semibold cursor-pointer ${
+                currentTab === 'admin' ? 'border-purple-400 bg-purple-900/60 text-white' : ''
+              }`}
+              title="Protected Administrator Portal (/admin)"
+            >
+              <Settings className="w-3.5 h-3.5" />
+              <span>Admin Portal</span>
+            </button>
           </nav>
 
           {/* Zone 3: Primary Actions & User Switcher */}
@@ -324,15 +323,17 @@ export const Navbar: React.FC<NavbarProps> = ({
               <Video className="w-4 h-4 text-emerald-400" />
               Gaming Videos &amp; Livestreams
             </button>
-            {(currentUser.role === 'owner' || currentUser.role === 'admin') && (
-              <button
-                onClick={() => { setCurrentTab('admin'); setMobileMenuOpen(false); }}
-                className="w-full text-left px-4 py-2.5 rounded-xl text-sm font-semibold text-purple-300 bg-purple-950/60 border border-purple-800/40 flex items-center gap-2"
-              >
-                <Settings className="w-4 h-4" />
-                Admin Dashboard &amp; Stream Alerts
-              </button>
-            )}
+            <button
+              onClick={() => { setCurrentTab('admin'); setMobileMenuOpen(false); }}
+              className={`w-full text-left px-4 py-2.5 rounded-xl text-sm font-semibold flex items-center gap-2 cursor-pointer ${
+                currentTab === 'admin'
+                  ? 'bg-purple-900/60 text-white border border-purple-500/40'
+                  : 'text-purple-300 hover:bg-slate-800/40'
+              }`}
+            >
+              <Settings className="w-4 h-4 text-purple-400" />
+              <span>Admin Portal (/admin)</span>
+            </button>
             <div className="pt-2 px-4">
               <button
                 onClick={() => { onOpenCheckout('Elite'); setMobileMenuOpen(false); }}

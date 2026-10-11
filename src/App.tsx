@@ -29,8 +29,47 @@ export default function App() {
   // Check if requested as standalone OBS / Streamlabs Browser Source overlay
   const isOverlayMode = typeof window !== 'undefined' && window.location.search.includes('view=overlay');
 
-  // Application state
-  const [currentTab, setCurrentTab] = useState<string>('home');
+  // Application routing & tab state
+  const getInitialTab = (): string => {
+    if (typeof window !== 'undefined') {
+      const path = window.location.pathname;
+      if (path === '/admin' || path === '/admin/') {
+        return 'admin';
+      }
+    }
+    return 'home';
+  };
+
+  const [currentTab, setCurrentTab] = useState<string>(getInitialTab);
+
+  // Sync browser URL with tab navigation
+  const handleNavigateTab = (tab: string) => {
+    setCurrentTab(tab);
+    if (typeof window !== 'undefined') {
+      if (tab === 'admin') {
+        if (window.location.pathname !== '/admin') {
+          window.history.pushState(null, '', '/admin');
+        }
+      } else {
+        if (window.location.pathname === '/admin' || window.location.pathname === '/admin/') {
+          window.history.pushState(null, '', '/');
+        }
+      }
+    }
+  };
+
+  useEffect(() => {
+    const handlePopState = () => {
+      if (window.location.pathname === '/admin' || window.location.pathname === '/admin/') {
+        setCurrentTab('admin');
+      } else {
+        setCurrentTab('home');
+      }
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
   const [currentUser, setCurrentUser] = useState<User>({
     id: 'usr_guest_demo',
     email: 'recruit@alphaxarmy.in',
@@ -202,7 +241,7 @@ export default function App() {
       {/* Top Navbar */}
       <Navbar
         currentTab={currentTab}
-        setCurrentTab={setCurrentTab}
+        setCurrentTab={handleNavigateTab}
         currentUser={currentUser}
         onSwitchUser={handleSwitchUser}
         onOpenCheckout={handleOpenCheckout}
@@ -216,11 +255,11 @@ export default function App() {
           <div className="space-y-12">
             <HomeHero
               onJoinMembership={() => handleOpenCheckout('Elite')}
-              onExploreCommunity={() => setCurrentTab('community')}
+              onExploreCommunity={() => handleNavigateTab('community')}
               subscriberCount={creator.subscriberCount}
               totalMembers={creator.totalMembers}
               isLive={creator.isLive}
-              onOpenLiveStream={() => setCurrentTab('videos')}
+              onOpenLiveStream={() => handleNavigateTab('videos')}
               youtubeData={youtubeData}
             />
 
@@ -295,6 +334,7 @@ export default function App() {
             }}
             isLive={creator.isLive}
             onToggleLive={handleToggleLive}
+            onNavigateHome={() => handleNavigateTab('home')}
           />
         )}
       </main>
@@ -357,10 +397,10 @@ export default function App() {
               <span>Discord</span>
             </a>
             <button
-              onClick={() => setCurrentTab('admin')}
-              className="hover:text-purple-300 text-[11px]"
+              onClick={() => handleNavigateTab('admin')}
+              className="hover:text-purple-300 text-[11px] cursor-pointer flex items-center gap-1"
             >
-              Owner Portal
+              <span>Admin Portal (/admin)</span>
             </button>
           </div>
 

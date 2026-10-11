@@ -1,0 +1,798 @@
+{
+  "users": [
+    {
+      "id": "usr_owner",
+      "email": "owner@vgalphax.com",
+      "name": "VG ALPHAX",
+      "avatar": "/src/assets/images/creator_avatar_alphax_1791703237400.jpg",
+      "role": "owner",
+      "createdAt": "2025-01-01T00:00:00.000Z",
+      "membership": {
+        "tier": "Legend",
+        "billingPeriod": "yearly",
+        "orderId": "ORD-FOUNDER-001",
+        "active": true,
+        "startedAt": "2025-01-01T00:00:00.000Z",
+        "expiresAt": "2030-01-01T00:00:00.000Z",
+        "paymentRef": "FOUNDER_GENESIS"
+      }
+    },
+    {
+      "id": "usr_elite_1",
+      "email": "shadowstrike@alphaxarmy.in",
+      "name": "ShadowStrike_99",
+      "avatar": "https://api.dicebear.com/7.x/bottts/svg?seed=ShadowStrike",
+      "role": "member",
+      "createdAt": "2026-02-15T10:00:00.000Z",
+      "membership": {
+        "tier": "Elite",
+        "billingPeriod": "monthly",
+        "orderId": "ORD-98234-ELITE",
+        "active": true,
+        "startedAt": "2026-03-01T12:00:00.000Z",
+        "expiresAt": "2026-11-30T12:00:00.000Z",
+        "paymentRef": "pay_rzp_mock_881923"
+      }
+    },
+    {
+      "id": "usr_vip_1",
+      "email": "aarav.ff@alphaxarmy.in",
+      "name": "AaravFF_Pro",
+      "avatar": "https://api.dicebear.com/7.x/bottts/svg?seed=AaravPro",
+      "role": "member",
+      "createdAt": "2026-03-10T14:30:00.000Z",
+      "membership": {
+        "tier": "Legend",
+        "billingPeriod": "monthly",
+        "orderId": "ORD-1791721229445-0A7A32",
+        "active": true,
+        "startedAt": "2026-10-11T12:20:34.132Z",
+        "expiresAt": "2026-11-11T12:20:34.132Z",
+        "paymentRef": "UTR_PHONEPE_481920192841"
+      }
+    },
+    {
+      "id": "usr_guest_demo",
+      "email": "recruit@alphaxarmy.in",
+      "name": "Recruit_Player",
+      "avatar": "https://api.dicebear.com/7.x/bottts/svg?seed=Recruit",
+      "role": "guest",
+      "createdAt": "2026-10-10T10:00:00.000Z",
+      "membership": {
+        "tier": "Legend",
+        "billingPeriod": "monthly",
+        "orderId": "ORD-1791710017939-A1D05D",
+        "active": true,
+        "startedAt": "2026-10-11T09:13:40.288Z",
+        "expiresAt": "2026-11-11T09:13:40.288Z",
+        "paymentRef": "pay_test_1791710020288"
+      }
+    }
+  ],
+  "plans": [
+    {
+      "id": "tier_vip",
+      "tier": "VIP",
+      "name": "VIP Member",
+      "badge": "👑 VIP",
+      "tagline": "Join the inner circle and stand out in streams",
+      "monthlyPrice": 99,
+      "yearlyPrice": 999,
+      "badgeColor": "#a855f7",
+      "accentGlow": "rgba(168, 85, 247, 0.4)",
+      "discordRole": "ALPHAX VIP",
+      "chatBadge": "VIP",
+      "perks": [
+        "Official ALPHAX VIP Badge in chat & profile",
+        "Access to Member-Only Community Posts & Polls",
+        "Exclusive VIP Discord Role & Channel Access",
+        "Live Stream Alert Callout on Screen",
+        "Custom Discord & Website Emotes"
+      ]
+    },
+    {
+      "id": "tier_elite",
+      "tier": "Elite",
+      "name": "Elite Member",
+      "badge": "⚡ ELITE",
+      "tagline": "Priority squad gaming & exclusive live streams",
+      "monthlyPrice": 299,
+      "yearlyPrice": 2999,
+      "badgeColor": "#38bdf8",
+      "accentGlow": "rgba(56, 189, 248, 0.4)",
+      "popular": true,
+      "discordRole": "ALPHAX Elite Squad",
+      "chatBadge": "ELITE",
+      "perks": [
+        "All VIP Member Perks Included",
+        "Priority Squad Slots in Live Custom Rooms (Free Fire MAX)",
+        "Access to Real-Time Private Member Chat with VG ALPHAX",
+        "Exclusive Gameplay Highlights & Uncut VODs",
+        "Monthly Custom Room Tournaments with Prize Pool Entry",
+        "High-Priority Chat Highlight during live streams"
+      ]
+    },
+    {
+      "id": "tier_legend",
+      "tier": "Legend",
+      "name": "Legend Member",
+      "badge": "🔥 LEGEND",
+      "tagline": "Ultimate tier for true champions of the ALPHAX Army",
+      "monthlyPrice": 799,
+      "yearlyPrice": 7999,
+      "badgeColor": "#eab308",
+      "accentGlow": "rgba(234, 179, 8, 0.4)",
+      "discordRole": "ALPHAX Legend Council",
+      "chatBadge": "LEGEND",
+      "perks": [
+        "All Elite & VIP Member Perks Included",
+        "Direct Voice Chat Session with VG ALPHAX on Discord",
+        "Guaranteed Squad Team-Up during Weekly Weekend Streams",
+        "Permanent Hall of Fame placement on Official Website",
+        "Exclusive Legend-Only Giveaways & In-Game Items",
+        "Custom Shoutout Video Recorded by VG ALPHAX",
+        "Special Golden Animated Nameplate in Chat"
+      ]
+    }
+  ],
+  "orders": [
+    {
+      "orderId": "ORD-1791721229445-0A7A32",
+      "userId": "usr_vip_1",
+      "userName": "AaravFF_Pro",
+      "userEmail": "aarav.ff@alphaxarmy.in",
+      "tier": "Legend",
+      "billingPeriod": "monthly",
+      "amount": 799,
+      "currency": "INR",
+      "status": "VERIFIED",
+      "paymentProvider": "razorpay",
+      "upiIdUsed": "vgalphax@axl",
+      "gatewayOrderId": "gateway_ORD-1791721229445-0A7A32",
+      "signatureVerified": true,
+      "verificationNotes": "Confirmed INR 799 credit in PhonePe statement at 12:21 PM",
+      "createdAt": "2026-10-11T12:20:29.445Z",
+      "verifiedBy": "admin@vgalphax.com",
+      "gatewayPaymentId": "UTR_PHONEPE_481920192841",
+      "completedAt": "2026-10-11T12:20:34.132Z",
+      "expiresAt": "2026-11-11T12:20:34.132Z"
+    },
+    {
+      "orderId": "ORD-1791714470127-C4B095",
+      "userId": "usr_guest_demo",
+      "userName": "Recruit_Player",
+      "userEmail": "recruit@alphaxarmy.in",
+      "tier": "VIP",
+      "billingPeriod": "monthly",
+      "amount": 99,
+      "currency": "INR",
+      "status": "PENDING",
+      "paymentProvider": "razorpay",
+      "upiIdUsed": "vgalphax@axl",
+      "gatewayOrderId": "gateway_ORD-1791714470127-C4B095",
+      "signatureVerified": false,
+      "verificationNotes": "Awaiting verified payment gateway webhook confirmation",
+      "createdAt": "2026-10-11T10:27:50.127Z"
+    },
+    {
+      "orderId": "ORD-1791711812358-7C0678",
+      "userId": "usr_guest_demo",
+      "userName": "Recruit_Player",
+      "userEmail": "recruit@alphaxarmy.in",
+      "tier": "Elite",
+      "billingPeriod": "monthly",
+      "amount": 299,
+      "currency": "INR",
+      "status": "PENDING",
+      "paymentProvider": "razorpay",
+      "upiIdUsed": "vgalphax@axl",
+      "gatewayOrderId": "gateway_ORD-1791711812358-7C0678",
+      "signatureVerified": false,
+      "verificationNotes": "Awaiting verified payment gateway webhook confirmation",
+      "createdAt": "2026-10-11T09:43:32.358Z"
+    },
+    {
+      "orderId": "ORD-1791710017939-A1D05D",
+      "userId": "usr_guest_demo",
+      "userName": "Recruit_Player",
+      "userEmail": "recruit@alphaxarmy.in",
+      "tier": "Legend",
+      "billingPeriod": "monthly",
+      "amount": 799,
+      "currency": "INR",
+      "status": "completed",
+      "paymentProvider": "razorpay",
+      "upiIdUsed": "vgalphax@axl",
+      "gatewayOrderId": "gateway_ORD-1791710017939-A1D05D",
+      "signatureVerified": true,
+      "createdAt": "2026-10-11T09:13:37.939Z",
+      "gatewayPaymentId": "pay_test_1791710020288",
+      "verificationNotes": "Verified in Test Sandbox via server-side verification pipeline",
+      "completedAt": "2026-10-11T09:13:40.288Z",
+      "expiresAt": "2026-11-11T09:13:40.288Z"
+    },
+    {
+      "orderId": "ORD-1791710005189-4D3969",
+      "userId": "usr_guest_demo",
+      "userName": "Recruit_Player",
+      "userEmail": "recruit@alphaxarmy.in",
+      "tier": "Elite",
+      "billingPeriod": "monthly",
+      "amount": 299,
+      "currency": "INR",
+      "status": "completed",
+      "paymentProvider": "razorpay",
+      "upiIdUsed": "vgalphax@axl",
+      "gatewayOrderId": "gateway_ORD-1791710005189-4D3969",
+      "signatureVerified": true,
+      "createdAt": "2026-10-11T09:13:25.189Z",
+      "gatewayPaymentId": "pay_test_1791710013865",
+      "verificationNotes": "Verified in Test Sandbox via server-side verification pipeline",
+      "completedAt": "2026-10-11T09:13:33.865Z",
+      "expiresAt": "2026-11-11T09:13:33.865Z"
+    },
+    {
+      "orderId": "ORD-1791709990528-525210",
+      "userId": "usr_guest_demo",
+      "userName": "Recruit_Player",
+      "userEmail": "recruit@alphaxarmy.in",
+      "tier": "Legend",
+      "billingPeriod": "monthly",
+      "amount": 799,
+      "currency": "INR",
+      "status": "completed",
+      "paymentProvider": "razorpay",
+      "upiIdUsed": "vgalphax@axl",
+      "gatewayOrderId": "gateway_ORD-1791709990528-525210",
+      "signatureVerified": true,
+      "createdAt": "2026-10-11T09:13:10.528Z",
+      "gatewayPaymentId": "pay_test_1791709993419",
+      "verificationNotes": "Verified in Test Sandbox via server-side verification pipeline",
+      "completedAt": "2026-10-11T09:13:13.419Z",
+      "expiresAt": "2026-11-11T09:13:13.419Z"
+    },
+    {
+      "orderId": "ORD-1791709914245-283C07",
+      "userId": "usr_guest_demo",
+      "userName": "Recruit_Player",
+      "userEmail": "recruit@alphaxarmy.in",
+      "tier": "VIP",
+      "billingPeriod": "monthly",
+      "amount": 99,
+      "currency": "INR",
+      "status": "completed",
+      "paymentProvider": "razorpay",
+      "upiIdUsed": "vgalphax@axl",
+      "gatewayOrderId": "gateway_ORD-1791709914245-283C07",
+      "signatureVerified": true,
+      "createdAt": "2026-10-11T09:11:54.246Z",
+      "gatewayPaymentId": "pay_test_1791709954597",
+      "verificationNotes": "Verified in Test Sandbox via server-side verification pipeline",
+      "completedAt": "2026-10-11T09:12:34.597Z",
+      "expiresAt": "2026-11-11T09:12:34.597Z"
+    },
+    {
+      "orderId": "ORD-1791708581678-249289",
+      "userId": "usr_guest_demo",
+      "userName": "Recruit_Player",
+      "userEmail": "recruit@alphaxarmy.in",
+      "tier": "VIP",
+      "billingPeriod": "monthly",
+      "amount": 99,
+      "currency": "INR",
+      "status": "pending",
+      "paymentProvider": "razorpay",
+      "upiIdUsed": "vgalphax@axl",
+      "gatewayOrderId": "gateway_ORD-1791708581678-249289",
+      "signatureVerified": false,
+      "createdAt": "2026-10-11T08:49:41.678Z"
+    },
+    {
+      "orderId": "ORD-1791708564519-9DCE35",
+      "userId": "usr_guest_demo",
+      "userName": "Recruit_Player",
+      "userEmail": "recruit@alphaxarmy.in",
+      "tier": "VIP",
+      "billingPeriod": "monthly",
+      "amount": 99,
+      "currency": "INR",
+      "status": "pending",
+      "paymentProvider": "razorpay",
+      "upiIdUsed": "vgalphax@axl",
+      "gatewayOrderId": "gateway_ORD-1791708564519-9DCE35",
+      "signatureVerified": false,
+      "createdAt": "2026-10-11T08:49:24.519Z"
+    },
+    {
+      "orderId": "ORD-1791707830579-82AB96",
+      "userId": "usr_guest_demo",
+      "userName": "Recruit_Player",
+      "userEmail": "recruit@alphaxarmy.in",
+      "tier": "Elite",
+      "billingPeriod": "monthly",
+      "amount": 299,
+      "currency": "INR",
+      "status": "pending",
+      "paymentProvider": "razorpay",
+      "upiIdUsed": "vgalphax@okhdfcbank",
+      "gatewayOrderId": "gateway_ORD-1791707830579-82AB96",
+      "signatureVerified": false,
+      "createdAt": "2026-10-11T08:37:10.579Z"
+    },
+    {
+      "orderId": "ORD-1791704187615-131831",
+      "userId": "usr_guest_demo",
+      "userName": "Recruit_Player",
+      "userEmail": "recruit@alphaxarmy.in",
+      "tier": "Elite",
+      "billingPeriod": "monthly",
+      "amount": 299,
+      "currency": "INR",
+      "status": "completed",
+      "paymentProvider": "razorpay",
+      "upiIdUsed": "vgalphax@okhdfcbank",
+      "gatewayOrderId": "gateway_ORD-1791704187615-131831",
+      "signatureVerified": true,
+      "createdAt": "2026-10-11T07:36:27.615Z",
+      "gatewayPaymentId": "pay_test_1791704207996",
+      "verificationNotes": "Verified in Test Sandbox via server-side verification pipeline",
+      "completedAt": "2026-10-11T07:36:47.996Z",
+      "expiresAt": "2026-11-11T07:36:47.996Z"
+    },
+    {
+      "orderId": "ORD-98234-ELITE",
+      "userId": "usr_elite_1",
+      "userName": "ShadowStrike_99",
+      "userEmail": "shadowstrike@alphaxarmy.in",
+      "tier": "Elite",
+      "billingPeriod": "monthly",
+      "amount": 299,
+      "currency": "INR",
+      "status": "completed",
+      "paymentProvider": "razorpay",
+      "upiIdUsed": "vgalphax@okhdfcbank",
+      "gatewayOrderId": "order_test_98234",
+      "gatewayPaymentId": "pay_rzp_mock_881923",
+      "signatureVerified": true,
+      "verificationNotes": "Verified via server-side HMAC-SHA256 signature",
+      "createdAt": "2026-03-01T11:58:00.000Z",
+      "completedAt": "2026-03-01T12:00:00.000Z",
+      "expiresAt": "2026-11-30T12:00:00.000Z"
+    },
+    {
+      "orderId": "ORD-77123-VIP",
+      "userId": "usr_vip_1",
+      "userName": "AaravFF_Pro",
+      "userEmail": "aarav.ff@alphaxarmy.in",
+      "tier": "VIP",
+      "billingPeriod": "monthly",
+      "amount": 99,
+      "currency": "INR",
+      "status": "completed",
+      "paymentProvider": "razorpay",
+      "upiIdUsed": "vgalphax@okhdfcbank",
+      "gatewayOrderId": "order_test_77123",
+      "gatewayPaymentId": "pay_rzp_mock_771920",
+      "signatureVerified": true,
+      "verificationNotes": "Verified via server-side HMAC-SHA256 signature",
+      "createdAt": "2026-03-15T07:55:00.000Z",
+      "completedAt": "2026-03-15T08:00:00.000Z",
+      "expiresAt": "2026-11-20T08:00:00.000Z"
+    }
+  ],
+  "webhookLogs": [
+    {
+      "id": "wh_test_1791710020288",
+      "orderId": "ORD-1791710017939-A1D05D",
+      "event": "payment.captured",
+      "provider": "razorpay",
+      "signature": "2f85d08c346fa039fe862655c3c880687d7147dbf10f84d1c0bcd4119e8b1ee4",
+      "signatureValid": true,
+      "receivedAt": "2026-10-11T09:13:40.288Z",
+      "amount": 799,
+      "status": "completed",
+      "idempotentKey": "idemp_ORD-1791710017939-A1D05D"
+    },
+    {
+      "id": "wh_test_1791710013865",
+      "orderId": "ORD-1791710005189-4D3969",
+      "event": "payment.captured",
+      "provider": "razorpay",
+      "signature": "1651e6e0c443a0e69a8aa333d38f18d24bd758a1016e7a89666d29152873bb08",
+      "signatureValid": true,
+      "receivedAt": "2026-10-11T09:13:33.865Z",
+      "amount": 299,
+      "status": "completed",
+      "idempotentKey": "idemp_ORD-1791710005189-4D3969"
+    },
+    {
+      "id": "wh_test_1791709993419",
+      "orderId": "ORD-1791709990528-525210",
+      "event": "payment.captured",
+      "provider": "razorpay",
+      "signature": "fe3fb76a1bbd333ff544fc50b5ac22f8019273f887e92753deaaacb3eafa1745",
+      "signatureValid": true,
+      "receivedAt": "2026-10-11T09:13:13.419Z",
+      "amount": 799,
+      "status": "completed",
+      "idempotentKey": "idemp_ORD-1791709990528-525210"
+    },
+    {
+      "id": "wh_test_1791709954597",
+      "orderId": "ORD-1791709914245-283C07",
+      "event": "payment.captured",
+      "provider": "razorpay",
+      "signature": "f233477304b3941ad1678045fc0e10a0ae19879d30b3f9c536b553a7793ac9f1",
+      "signatureValid": true,
+      "receivedAt": "2026-10-11T09:12:34.597Z",
+      "amount": 99,
+      "status": "completed",
+      "idempotentKey": "idemp_ORD-1791709914245-283C07"
+    },
+    {
+      "id": "wh_test_1791704207997",
+      "orderId": "ORD-1791704187615-131831",
+      "event": "payment.captured",
+      "provider": "razorpay",
+      "signature": "84ab5c2c8ce59fad83aebdd3bd9af2878b6ba0bc57e7c471ac2278769665d33b",
+      "signatureValid": true,
+      "receivedAt": "2026-10-11T07:36:47.996Z",
+      "amount": 299,
+      "status": "completed",
+      "idempotentKey": "idemp_ORD-1791704187615-131831"
+    },
+    {
+      "id": "wh_log_init_1",
+      "orderId": "ORD-98234-ELITE",
+      "event": "payment.captured",
+      "provider": "razorpay",
+      "signature": "c4ca4238a0b923820dcc509a6f75849b",
+      "signatureValid": true,
+      "receivedAt": "2026-03-01T12:00:00.000Z",
+      "amount": 299,
+      "status": "completed",
+      "idempotentKey": "wh_idemp_98234_1"
+    }
+  ],
+  "alerts": [
+    {
+      "id": "alert_1791721234132_6bb2",
+      "orderId": "ORD-1791721229445-0A7A32",
+      "memberName": "AaravFF_Pro",
+      "tier": "Legend",
+      "message": "WELCOME TO THE ALPHAX ARMY! AaravFF_Pro just joined as a Legend Member! 🔥",
+      "avatar": "https://api.dicebear.com/7.x/bottts/svg?seed=AaravPro",
+      "amount": 799,
+      "currency": "INR",
+      "createdAt": "2026-10-11T12:20:34.132Z",
+      "played": false
+    },
+    {
+      "id": "alert_1791710020288",
+      "orderId": "ORD-1791710017939-A1D05D",
+      "memberName": "Recruit_Player",
+      "tier": "Legend",
+      "message": "WELCOME TO THE ALPHAX ARMY! Recruit_Player just joined as a Legend Member! 🔥",
+      "avatar": "https://api.dicebear.com/7.x/bottts/svg?seed=Recruit",
+      "amount": 799,
+      "currency": "INR",
+      "createdAt": "2026-10-11T09:13:40.288Z",
+      "played": false
+    },
+    {
+      "id": "alert_1791710013865",
+      "orderId": "ORD-1791710005189-4D3969",
+      "memberName": "Recruit_Player",
+      "tier": "Elite",
+      "message": "WELCOME TO THE ALPHAX ARMY! Recruit_Player just joined as a Elite Member! 🔥",
+      "avatar": "https://api.dicebear.com/7.x/bottts/svg?seed=Recruit",
+      "amount": 299,
+      "currency": "INR",
+      "createdAt": "2026-10-11T09:13:33.865Z",
+      "played": false
+    },
+    {
+      "id": "alert_1791709993419",
+      "orderId": "ORD-1791709990528-525210",
+      "memberName": "Recruit_Player",
+      "tier": "Legend",
+      "message": "WELCOME TO THE ALPHAX ARMY! Recruit_Player just joined as a Legend Member! 🔥",
+      "avatar": "https://api.dicebear.com/7.x/bottts/svg?seed=Recruit",
+      "amount": 799,
+      "currency": "INR",
+      "createdAt": "2026-10-11T09:13:13.419Z",
+      "played": false
+    },
+    {
+      "id": "alert_1791709954597",
+      "orderId": "ORD-1791709914245-283C07",
+      "memberName": "Recruit_Player",
+      "tier": "VIP",
+      "message": "WELCOME TO THE ALPHAX ARMY! Recruit_Player just joined as a VIP Member! 🔥",
+      "avatar": "https://api.dicebear.com/7.x/bottts/svg?seed=Recruit",
+      "amount": 99,
+      "currency": "INR",
+      "createdAt": "2026-10-11T09:12:34.597Z",
+      "played": false
+    },
+    {
+      "id": "alert_1791704207997",
+      "orderId": "ORD-1791704187615-131831",
+      "memberName": "Recruit_Player",
+      "tier": "Elite",
+      "message": "WELCOME TO THE ALPHAX ARMY! Recruit_Player just joined as a Elite Member! 🔥",
+      "avatar": "https://api.dicebear.com/7.x/bottts/svg?seed=Recruit",
+      "amount": 299,
+      "currency": "INR",
+      "createdAt": "2026-10-11T07:36:47.996Z",
+      "played": false
+    },
+    {
+      "id": "alert_init_1",
+      "orderId": "ORD-98234-ELITE",
+      "memberName": "ShadowStrike_99",
+      "tier": "Elite",
+      "message": "WELCOME TO THE ALPHAX ARMY! ShadowStrike_99 just joined as an Elite Member! ⚡",
+      "avatar": "https://api.dicebear.com/7.x/bottts/svg?seed=ShadowStrike",
+      "amount": 299,
+      "currency": "INR",
+      "createdAt": "2026-03-01T12:00:05.000Z",
+      "played": true
+    }
+  ],
+  "chatMessages": [
+    {
+      "id": "msg_1",
+      "channelId": "general",
+      "userId": "usr_owner",
+      "userName": "VG ALPHAX",
+      "userAvatar": "/src/assets/images/creator_avatar_alphax_1791703237400.jpg",
+      "userRole": "owner",
+      "userTier": "Legend",
+      "content": "WELCOME TO THE OFFICIAL VG ALPHAX PLATFORM! Glad to have everyone here. Stream starting shortly!",
+      "timestamp": "2026-10-10T16:00:00.000Z",
+      "pinned": true,
+      "reactions": {
+        "🔥": [
+          "ShadowStrike_99",
+          "AaravFF_Pro"
+        ],
+        "👑": [
+          "AaravFF_Pro"
+        ]
+      }
+    },
+    {
+      "id": "msg_2",
+      "channelId": "general",
+      "userId": "usr_elite_1",
+      "userName": "ShadowStrike_99",
+      "userAvatar": "https://api.dicebear.com/7.x/bottts/svg?seed=ShadowStrike",
+      "userRole": "member",
+      "userTier": "Elite",
+      "content": "Bro ready for Custom Room today! Elite squad locked in!",
+      "timestamp": "2026-10-10T16:05:00.000Z",
+      "reactions": {
+        "⚡": [
+          "VG ALPHAX"
+        ],
+        "🔥": [
+          "Recruit_Player"
+        ]
+      }
+    },
+    {
+      "id": "msg_3",
+      "channelId": "vip_lounge",
+      "userId": "usr_owner",
+      "userName": "VG ALPHAX",
+      "userAvatar": "/src/assets/images/creator_avatar_alphax_1791703237400.jpg",
+      "userRole": "owner",
+      "userTier": "Legend",
+      "content": "VIP & Elite Lounge: Room ID for first match will be posted here 5 minutes ahead of stream!",
+      "timestamp": "2026-10-10T16:10:00.000Z",
+      "pinned": true,
+      "reactions": {
+        "👑": [
+          "ShadowStrike_99",
+          "AaravFF_Pro"
+        ]
+      }
+    },
+    {
+      "id": "msg_1791710186688",
+      "channelId": "general",
+      "userId": "usr_guest_demo",
+      "userName": "Recruit_Player",
+      "userAvatar": "https://api.dicebear.com/7.x/bottts/svg?seed=Recruit",
+      "userRole": "guest",
+      "userTier": "Legend",
+      "content": "Yoo",
+      "timestamp": "2026-10-11T09:16:26.688Z",
+      "reactions": {
+        "🔥": [
+          "Recruit_Player"
+        ]
+      }
+    }
+  ],
+  "groups": [
+    {
+      "id": "grp_freefire",
+      "name": "Free Fire MAX",
+      "slug": "free-fire-max",
+      "category": "Gaming",
+      "description": "Custom room IDs, squad rush tactics, character combos, and weapon meta discussions.",
+      "isPrivate": false,
+      "memberCount": 4820,
+      "iconName": "Flame",
+      "lastActive": "2 min ago"
+    },
+    {
+      "id": "grp_squad",
+      "name": "Gaming Squad Hub",
+      "slug": "gaming-squad",
+      "category": "Squad Matchmaking",
+      "description": "Find teammates with active mic for ranked push, CS ranked, and scrim practice.",
+      "isPrivate": false,
+      "memberCount": 2340,
+      "iconName": "Users",
+      "lastActive": "5 min ago"
+    },
+    {
+      "id": "grp_announcements",
+      "name": "Official Announcements",
+      "slug": "announcements",
+      "category": "Official",
+      "description": "Verified updates, stream schedules, tournament brackets, and channel milestones directly from VG ALPHAX.",
+      "isPrivate": false,
+      "memberCount": 15400,
+      "iconName": "Megaphone",
+      "lastActive": "1 hour ago"
+    },
+    {
+      "id": "grp_events",
+      "name": "Esports & Community Events",
+      "slug": "events",
+      "category": "Tournaments",
+      "description": "Weekly Sunday tournaments, custom clash squad cups, and giveaway registrations.",
+      "isPrivate": false,
+      "memberCount": 3100,
+      "iconName": "Trophy",
+      "lastActive": "3 hours ago"
+    },
+    {
+      "id": "grp_vip_lounge",
+      "name": "VIP & Elite Lounge",
+      "slug": "vip-lounge",
+      "category": "Members Only",
+      "description": "Exclusive private lounge for VIP, Elite, and Legend members. Direct access to creator chats and early strategy drops.",
+      "minTier": "VIP",
+      "isPrivate": true,
+      "memberCount": 285,
+      "iconName": "Crown",
+      "lastActive": "Just now"
+    }
+  ],
+  "posts": [
+    {
+      "id": "post_1",
+      "authorName": "VG ALPHAX",
+      "authorAvatar": "/src/assets/images/creator_avatar_alphax_1791703237400.jpg",
+      "authorRole": "owner",
+      "title": "Sunday Mega Stream & 50,000 Diamonds Custom Room Challenge! 🔥",
+      "content": "ALPHAX ARMY! This Sunday at 7:00 PM IST we are hosting 5 back-to-back Custom Battle Royale rooms with live commentary. Elite & Legend members get 10-minute early entry code in the private lounge before public room drop! Make sure your Free Fire client is updated to the latest patch.",
+      "category": "Stream Schedule",
+      "createdAt": "2026-10-10T18:00:00.000Z",
+      "likes": 342,
+      "commentsCount": 89,
+      "likedByMe": true,
+      "isMemberOnly": false,
+      "poll": {
+        "question": "Which weapon loadout should we lock for Room #3?",
+        "totalVotes": 890,
+        "options": [
+          {
+            "id": "opt_1",
+            "text": "Sniper Only (AWM + M82B)",
+            "votes": 462
+          },
+          {
+            "id": "opt_2",
+            "text": "Shotgun Rush (M1887 + MP40)",
+            "votes": 312
+          },
+          {
+            "id": "opt_3",
+            "text": "Pistol Showdown (Desert Eagle)",
+            "votes": 116
+          }
+        ]
+      }
+    },
+    {
+      "id": "post_2",
+      "authorName": "VG ALPHAX",
+      "authorAvatar": "/src/assets/images/creator_avatar_alphax_1791703237400.jpg",
+      "authorRole": "owner",
+      "title": "Exclusive Elite Strategy: Ranked Heroic & Grandmaster Rotation Guide [Members Only]",
+      "content": "Full tactical breakdown on Kalahari and Bermuda high-tier rotations. In this secret playbook, we cover zone prediction algorithms, glider repositioning tricks, and how to counter double-grenade spam in the final circle.",
+      "category": "Pro Strategy",
+      "createdAt": "2026-10-09T14:15:00.000Z",
+      "likes": 128,
+      "commentsCount": 34,
+      "isMemberOnly": true,
+      "minTier": "VIP"
+    }
+  ],
+  "videos": [
+    {
+      "id": "vid_1",
+      "title": "1 VS 4 CLUTCH IN GRANDMASTER LOBBY! Unstoppable MP40 Gameplay | Free Fire MAX",
+      "youtubeId": "dQw4w9WgXcQ",
+      "duration": "18:42",
+      "views": "142K views",
+      "publishedAt": "2 days ago",
+      "category": "Ranked Gameplay"
+    },
+    {
+      "id": "vid_2",
+      "title": "NEW WEAPON UPDATE IN-DEPTH TEST: Is the New Shotgun Overpowered?",
+      "youtubeId": "jNQXAC9IVRw",
+      "duration": "12:15",
+      "views": "98K views",
+      "publishedAt": "4 days ago",
+      "category": "Weapon Meta"
+    },
+    {
+      "id": "vid_3",
+      "title": "ALPHAX ARMY SQUAD TOURNAMENT FINALS — High Voltage Highlights",
+      "youtubeId": "9bZkp7q19f0",
+      "duration": "24:05",
+      "views": "230K views",
+      "publishedAt": "1 week ago",
+      "category": "Tournament"
+    },
+    {
+      "id": "vid_4",
+      "title": "[VIP EXCLUSIVE] Pro HUD Setup & 1-Tap Headshot Sensitivity Settings 2026",
+      "youtubeId": "kJQP7kiw5Fk",
+      "duration": "15:20",
+      "views": "12K views",
+      "publishedAt": "1 week ago",
+      "category": "Member Exclusive",
+      "isExclusive": true,
+      "minTier": "VIP"
+    }
+  ],
+  "creator": {
+    "name": "VG ALPHAX",
+    "brand": "VG ALPHAX",
+    "avatar": "https://yt3.ggpht.com/RMNMRMFJAftFww9cMuwTEKfgoaQmrZara-bLAsKC95evHWqLSmpJ29XOylZ8nyU6xJyKF8CM=s800-c-k-c0x00ffffff-no-rj",
+    "bannerImage": "/src/assets/images/hero_esports_alphax_1791703225410.jpg",
+    "bio": "Top-tier Free Fire MAX & Battle Royale Esports Content Creator. Streaming live high-octane clutch action from mobile & PC. Welcome to the ALPHAX Army!",
+    "isLive": false,
+    "liveStreamId": "live_stream_alphax_main",
+    "liveStreamTitle": "GRANDMASTER RANK PUSH WITH ELITE SQUAD! 🔴 ROAD TO TOP 10 REGION | CUSTOM ROOMS",
+    "liveViewerCount": 1840,
+    "subscriberCount": 134,
+    "totalMembers": 418,
+    "discordInviteUrl": "https://discord.gg/alphaxarmy",
+    "youtubeChannelUrl": "https://youtube.com/@vg_alphax",
+    "instagramUrl": "https://instagram.com/vgalphax"
+  },
+  "settings": {
+    "upiId": "vgalphax@axl",
+    "upiIdVerified": true,
+    "upiMerchantName": "VG ALPHAX Gaming",
+    "qrAssetUrl": "/vgalphax-upi-qr.svg",
+    "paymentMode": "test",
+    "gatewayKeyId": "rzp_test_alphax12345",
+    "gatewaySecretConfigured": true,
+    "webhookSecretConfigured": true,
+    "alertOverlayToken": "alphax_secure_overlay_token_9982",
+    "alertDisplayDurationSec": 8,
+    "alertSoundEnabled": true,
+    "customWelcomeMessage": "WELCOME TO THE ALPHAX ARMY! {name} just joined as a {tier} Member! 🔥"
+  }
+}
